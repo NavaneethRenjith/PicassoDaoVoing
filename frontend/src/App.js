@@ -10,7 +10,7 @@ const ethers = require("ethers");
 const App = () => {
   const [contract, setContract] = useState(null);
   const [provider, setProvider] = useState(null);
-  const [ballotOfficialAddress, setBallotOfficialAddress] = useState('');
+  const [propsalRaisedByAddress, setpropsalRaisedByAddress] = useState('');
   const [ballotOfficialName, setBallotOfficialName] = useState('');
   const [proposal, setProposal] = useState('');
   const [voterAddress, setVoterAddress] = useState('');
@@ -59,7 +59,7 @@ const App = () => {
         const provider = new ethers.providers.Web3Provider(window.ethereum);
         const signer = provider.getSigner();
         //! Replace contractAddress here
-        const contractAddress = '0x4BD4BCfEeA11A7c1FCd910ae49AE86b116EecC34';
+        const contractAddress = '0x81946C6B6f5ea245EE3C45833F4CB3f6d2E12c1d';
         const contract = new ethers.Contract(contractAddress, VotingSystemContract, signer);
 
         if (contract && contract.addProposal) {
@@ -87,14 +87,14 @@ const App = () => {
     }
   };
 
-  const addVoter = async () => {
-    try {
-      await contract.addVoter(voterAddress, voterName);
-      console.log('Voter added successfully!');
-    } catch (error) {
-      console.log('Error adding voter:', error);
-    }
-  };
+  // const addVoter = async () => {
+  //   try {
+  //     await contract.addVoter(voterAddress, voterName);
+  //     console.log('Voter added successfully!');
+  //   } catch (error) {
+  //     console.log('Error adding voter:', error);
+  //   }
+  // };
 
   const startVote = async () => {
     try {
@@ -135,7 +135,7 @@ const App = () => {
       setTotalVotes(parseInt(totalVote));
       setYesVotes(parseInt(yesResult));
       setNoVotes(parseInt(noResult));
-      const finalResult = yesVotes >= noVotes ? "Accepted" : "Rejected";
+      const finalResult = yesVotes > noVotes ? "Accepted" : "Rejected";
       setFinalResult(finalResult);
     } catch (error) {
       console.log('Error fetching vote results:', error);
@@ -147,7 +147,7 @@ const App = () => {
       <h2>Voting System</h2>
       <div>
         <h3>Add Proposal</h3>
-        <label>Ballot Official Name:</label>
+        <label>Name:</label>
         <input
           type="text"
           value={ballotOfficialName}
@@ -164,7 +164,7 @@ const App = () => {
         <button onClick={addProposal}>Add Proposal</button>
       </div>
 
-      <div>
+      {/* <div>
         <h3>Add Voter</h3>
         <label>Voter Address:</label>
         <input
@@ -181,7 +181,7 @@ const App = () => {
         />
         <br />
         <button onClick={addVoter}>Add Voter</button>
-      </div>
+      </div> */}
 
       <div>
         <h3>Start Vote</h3>

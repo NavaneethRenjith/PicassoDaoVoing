@@ -11,7 +11,6 @@ pragma solidity >=0.7.0 <0.9.0;
 // 6. reliable, no frauds.
 
 contract VotingSystem {
-
     // VARIABLES
     struct vote {
         address voterAddress;
@@ -32,13 +31,14 @@ contract VotingSystem {
     uint public totalVoter = 0;
     uint public totalVote = 0;
 
-    // address of ballot
-    address public ballotOfficialAddress;
+    // address public ballotOfficialAddress;
     string public ballotOfficialName;
+    address public propsalRaisedByAddress;
     string public proposal;
 
     mapping(uint => vote) private votes;
     mapping(address => voter) public voterRegister;
+    mapping(address => bool) public voters;
 
     // states of ballot
     enum State {
@@ -50,7 +50,7 @@ contract VotingSystem {
     State public state;
 
     // MODIFIERS
-    modifier condition(bool _condition){
+    modifier condition(bool _condition) {
         require(_condition);
         _;
     }
@@ -60,7 +60,7 @@ contract VotingSystem {
     //     _;
     // }
 
-    modifier inState(State _state){
+    modifier inState(State _state) {
         require(state == _state);
         _;
     }
@@ -68,71 +68,85 @@ contract VotingSystem {
     // EVENTS
 
     // FUNCTIONS
-    function addProposal(string memory _ballotOfficialName, string memory _proposal) public{
-      //  ballotOfficialAddress = msg.sender;
+    function addProposal(
+        string memory _ballotOfficialName,
+        string memory _proposal
+    ) public {
         ballotOfficialName = _ballotOfficialName;
+        propsalRaisedByAddress = msg.sender;
         proposal = _proposal;
 
         state = State.Created;
+        noResult = 0;
+        yesResult = 0;
+        totalVoter = 0;
+        totalVote = 0;
     }
 
     // creator of ballot adds voter addresses one by one
-    function addVoter(address _voterAddress, string memory _voterName) public inState(State.Created) {
-        voter memory v;
-        v.voterName = _voterName;
-        v.voted = false;
-        voterRegister[_voterAddress] = v;
-        totalVoter++;
-    }
+    // function addVoter(
+    //     address _voterAddress,
+    //     string memory _voterName
+    // ) public inState(State.Created) {
+    //     voter memory v;
+    //     v.voterName = _voterName;
+    //     v.voted = false;
+    //     voterRegister[_voterAddress] = v;
+    //     totalVoter++;
+    // }
 
     // creator starts the ballot
-    function startVote() public inState(State.Created){
+    function startVote() public inState(State.Created) {
         state = State.Voting;
     }
-    
+
     // voter chooses, true or false
-    function doVote(uint _choice) public inState(State.Voting) returns(bool voted){
+    function doVote(
+        uint _choice
+    ) public inState(State.Voting) returns (bool voted) {
         // first check if the voter is in the voter registry && voter hasnt voted yet
         bool found = false;
-        if(bytes(voterRegister[msg.sender].voterName).length != 0 && !voterRegister[msg.sender].voted){
-            voterRegister[msg.sender].voted = true;
+
+        if (!voters[msg.sender]) {
+            voters[msg.sender] = true;
             vote memory v;
             v.voterAddress = msg.sender;
             v.choice = _choice;
 
-            if(_choice==1){
+            if (_choice == 1) {
                 // we only count true values (yay)
                 yesResult++;
-            }
-            else{
+            } else {
                 noResult++;
             }
             votes[totalVote] = v;
             totalVote++;
             found = true;
         }
+        // if (
+        //     bytes(voterRegister[msg.sender].voterName).length != 0 &&
+        //     !voterRegister[msg.sender].voted
+        // ) {
+        //     voterRegister[msg.sender].voted = true;
+        //     vote memory v;
+        //     v.voterAddress = msg.sender;
+        //     v.choice = _choice;
+
+        //     if (_choice == 1) {
+        //         // we only count true values (yay)
+        //         yesResult++;
+        //     } else {
+        //         noResult++;
+        //     }
+        //     votes[totalVote] = v;
+        //     totalVote++;
+        //     found = true;
+        // }
         return found;
     }
 
-    function endVote() public inState(State.Voting){
+    function endVote() public inState(State.Voting) {
         state = State.Ended;
-        finalResult = yesResult>=noResult?"Accepted":"Rejected";
+        finalResult = yesResult > noResult ? "Accepted" : "Rejected";
     }
-    // function totalVotes() public returns(uint){
-    //     return totalVoter;
-    // }
-    // function totalVote() public returns(uint){
-    //     return totalVote;
-    // }
-    // function yesResult() public returns(uint){
-    //     return yesResult;
-    // }
-    // function totalVotes() public returns(uint){
-    //     return totalVoter;
-    // }
-    // function totalVotes() public returns(uint){
-    //     return totalVoter;
-    // }
-
-
 }

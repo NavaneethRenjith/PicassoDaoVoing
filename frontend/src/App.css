@@ -27,6 +27,219 @@
 .App-link {
   color: #61dafb;
 }
+/* Global styles */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f3f3f3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.container {
+  width: 100%;
+  max-width: 600px;
+  padding: 40px;
+  text-align: center;
+}
+
+h2 {
+  font-size: 28px;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.top-half {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.bottom-half {
+  display: flex;
+  justify-content: space-between;
+}
+
+.section1 {
+  flex: 1;
+  background-color: #f5f7fa;
+  padding: 20px;
+  text-align: center;
+  margin-right: 10px;
+  border-radius: 8px;
+}
+
+.section2 {
+  flex: 1;
+  background-color: #edf6ff;
+  padding: 20px;
+  text-align: center;
+  margin-left: 10px;
+  margin-right: 10px;
+  border-radius: 8px;
+}
+
+.section3 {
+  flex: 1;
+  background-color: #e5f7ed;
+  padding: 20px;
+  text-align: center;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  border-radius: 8px;
+}
+
+.section4 {
+  flex: 1;
+  background-color: #fffaf0;
+  padding: 20px;
+  text-align: center;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  border-radius: 8px;
+}
+
+.section1 h3,
+.section2 h3,
+.section3 h3,
+.section4 h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.section1 label,
+.section2 label,
+.section3 label,
+.section4 label {
+  display: block;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.section1 input,
+.section2 input,
+.section3 select,
+.section4 input {
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+.section1 button,
+.section2 button,
+.section3 button,
+.section4 button {
+  background-color: #b8e994;
+  color: #fff;
+  border: none;
+  padding: 12px 20px;
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: 20px;
+  transition: background-color 0.3s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.section1 button:hover,
+.section2 button:hover,
+.section3 button:hover,
+.section4 button:hover {
+  background-color: #78e08f;
+}
+
+.section1 input[type="text"],
+.section2 input[type="text"],
+.section3 select,
+.section4 input[type="text"] {
+  border: none;
+  background-color: #f3f3f3;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 4px;
+  outline: none;
+  transition: background-color 0.3s;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.section1 input[type="text"]:focus,
+.section2 input[type="text"]:focus,
+.section3 select:focus,
+.section4 input[type="text"]:focus {
+  background-color: #fff;
+}
+
+.section1 select,
+.section2 select,
+.section3 select,
+.section4 select {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 4px;
+  outline: none;
+  border: none;
+  transition: background-color 0.3s;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #f3f3f3;
+}
+
+.section1 select:focus,
+.section2 select:focus,
+.section3 select:focus,
+.section4 select:focus {
+  background-color: #fff;
+}
+
+.section1 p,
+.section2 p,
+.section3 p,
+.section4 p {
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+.section1 .success-message,
+.section2 .success-message,
+.section3 .success-message,
+.section4 .success-message {
+  color: #2ecc71;
+  font-weight: bold;
+}
+
+.section1 .error-message,
+.section2 .error-message,
+.section3 .error-message,
+.section4 .error-message {
+  color: #e74c3c;
+  font-weight: bold;
+}
+
+.section1 .loader,
+.section2 .loader,
+.section3 .loader,
+.section4 .loader {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid #3498db;
+  border-top-color: transparent;
+  animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 
 @keyframes App-logo-spin {
   from {

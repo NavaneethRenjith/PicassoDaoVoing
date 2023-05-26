@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './App.css';
 // import { ethers } from 'ethers';
 import Web3 from 'web3';
 import VotingSystemContract from './VotingSystem.json';
@@ -141,84 +142,92 @@ const App = () => {
       console.log('Error fetching vote results:', error);
     }
   };
-
   return (
-    <div>
+    <div className="container">
       <h2>Voting System</h2>
-      <div>
-        <h3>Add Proposal</h3>
-        <label>Ballot Official Name:</label>
-        <input
-          type="text"
-          value={ballotOfficialName}
-          onChange={(e) => setBallotOfficialName(e.target.value)}
-        />
-        <br />
-        <label>Proposal:</label>
-        <input
-          type="text"
-          value={proposal}
-          onChange={(e) => setProposal(e.target.value)}
-        />
-        <br />
-        <button onClick={addProposal}>Add Proposal</button>
-      </div>
-
-      <div>
-        <h3>Add Voter</h3>
-        <label>Voter Address:</label>
-        <input
-          type="text"
-          value={voterAddress}
-          onChange={(e) => setVoterAddress(e.target.value)}
-        />
-        <br />
-        <label>Voter Name:</label>
-        <input
-          type="text"
-          value={voterName}
-          onChange={(e) => setVoterName(e.target.value)}
-        />
-        <br />
-        <button onClick={addVoter}>Add Voter</button>
-      </div>
-
-      <div>
-        <h3>Start Vote</h3>
-        <button onClick={startVote}>Start Vote</button>
-      </div>
-
-      {votingStarted && (
-        <div>
-          <h3>Cast Your Vote</h3>
-          <label>Vote Choice:</label>
-          <select value={voteChoice} onChange={(e) => setVoteChoice(parseInt(e.target.value))}>
-            <option value={0}>Nay</option>
-            <option value={1}>Yay</option>
-          </select>
+  
+      <div className="top-half">
+        <div className="section1">
+          <h3>Add Proposal</h3>
+          <label>Ballot Official Name:</label>
+          <input
+            type="text"
+            value={ballotOfficialName}
+            onChange={(e) => setBallotOfficialName(e.target.value)}
+          />
           <br />
-          <button onClick={doVote}>Submit Vote</button>
-        </div>
-      )}
-
-      <div>
-        <h3>End Vote</h3>
-        <button onClick={endVote}>End Vote</button>
-      </div>
-
-      {votingEnded && (
-        <div>
-          <h3>Vote Results</h3>
-          <button onClick={fetchVoteResults}>Fetch Results</button>
+          <label>Proposal:</label>
+          <input
+            type="text"
+            value={proposal}
+            onChange={(e) => setProposal(e.target.value)}
+          />
           <br />
-          <p>Total Votes: {totalVotes}</p>
-          <p>Yes Votes: {yesVotes}</p>
-          <p>No Votes: {noVotes}</p>
-          <p>Final Result: {finalResult}</p>
+          <button onClick={addProposal}>Add Proposal</button>
         </div>
-      )}
+  
+        <div className="section2">
+          <h3>Add Voter</h3>
+          <label>Voter Address:</label>
+          <input
+            type="text"
+            value={voterAddress}
+            onChange={(e) => setVoterAddress(e.target.value)}
+          />
+          <br />
+          <label>Voter Name:</label>
+          <input
+            type="text"
+            value={voterName}
+            onChange={(e) => setVoterName(e.target.value)}
+          />
+          <br />
+          <button onClick={addVoter}>Add Voter</button>
+        </div>
+      </div>
+  
+      <div className="bottom-half">
+        <div className="section3">
+          <h3>Start Vote</h3>
+          <button onClick={startVote}>Start Vote</button>
+        </div>
+  
+        {votingStarted && (
+          <div>
+            <h3>Cast Your Vote</h3>
+            <label>Vote Choice:</label>
+            <select
+              value={voteChoice}
+              onChange={(e) => setVoteChoice(parseInt(e.target.value))}
+            >
+              <option value={0}>Nay</option>
+              <option value={1}>Yay</option>
+            </select>
+            <br />
+            <button onClick={doVote}>Submit Vote</button>
+          </div>
+        )}
+  
+        <div className="section4">
+          <h3>End Vote</h3>
+          <button onClick={endVote}>End Vote</button>
+        </div>
+  
+        {votingEnded && (
+          <div>
+            <h3>Vote Results</h3>
+            <button onClick={fetchVoteResults}>Fetch Results</button>
+            <br />
+            <p>Total Votes: {totalVotes}</p>
+            <p>Yes Votes: {yesVotes}</p>
+            <p>No Votes: {noVotes}</p>
+            <p>Final Result: {finalResult}</p>
+          </div>
+        )}
+      </div>
     </div>
   );
+  
 };
 
 export default App;

@@ -60,7 +60,7 @@ const App = () => {
                 const provider = new ethers.providers.Web3Provider(window.ethereum);
                 const signer = provider.getSigner();
                 //! Replace contractAddress here
-                const contractAddress = '0x35C6eA8c815599d864dc6e9AC08C76445fC846fD';
+                const contractAddress = '0xf1bf9AecbbdB731A3ED99d5D78579df2E8CC53AF';
                 const contract = new ethers.Contract(contractAddress, VotingSystemContract, signer);
 
                 if (contract && contract.addProposal) {
@@ -109,7 +109,7 @@ const App = () => {
 
     const doVote = async () => {
         try {
-            await contract.doVote(voteChoice);
+            await contract.doVote(voteChoice)
             console.log('Vote submitted!');
         } catch (error) {
             console.log('Error submitting vote:', error);

@@ -39,6 +39,7 @@ contract VotingSystem {
     mapping(uint => vote) private votes;
     mapping(address => voter) public voterRegister;
     mapping(address => bool) public voters;
+    mapping(address => uint) public tokenHolders;
 
     // states of ballot
     enum State {
